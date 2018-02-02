@@ -3,19 +3,24 @@ from flask import Flask
 from flask import abort
 from flask import request
 import time
+import json
 app = Flask(__name__)
 
-ok_response = {'msg':'Ok', 'code':200}
+
+country_inflation = json.dumps([{'country': 'Venezuela', 'inflation': 741.0}, {'country': 'South Sudan', 'inflation': 142.0}, {'country': 'Congo', 'inflation': 59.78}, {'country': 'North Korea', 'inflation': 55.0}, {'country': 'Syria', 'inflation': 43.2}, {'country': 'Central African Republic', 'inflation': 38.04}, {'country': 'Sudan', 'inflation': 33.1}, {'country': 'Libya', 'inflation': 25.7}, {'country': 'Argentina', 'inflation': 25.0}, {'country': 'Angola', 'inflation': 23.67}, {'country': 'Egypt', 'inflation': 21.9}, {'country': 'Sierra Leone', 'inflation': 16.26}, {'country': 'Nigeria', 'inflation': 15.37}, {'country': 'Burundi', 'inflation': 15.3}, {'country': 'Ukraine', 'inflation': 13.7}, {'country': 'Ethiopia', 'inflation': 13.6}, {'country': 'Haiti', 'inflation': 13.3}, {'country': 'Azerbaijan', 'inflation': 12.9}, {'country': 'Turkey', 'inflation': 11.92}, {'country': 'Liberia', 'inflation': 11.9}, {'country': 'Ghana', 'inflation': 11.8}, {'country': 'Iran', 'inflation': 10.0}, {'country': 'Yemen', 'inflation': 9.49}, {'country': 'Guinea', 'inflation': 9.3}, {'country': 'Madagascar', 'inflation': 9.2}, {'country': 'Suriname', 'inflation': 9.2}, {'country': 'Eritrea', 'inflation': 8.9}, {'country': 'Gambia', 'inflation': 7.92}, {'country': 'Moldova', 'inflation': 7.3}, {'country': 'Kazakhstan', 'inflation': 7.1}, {'country': 'Malawi', 'inflation': 7.1}, {'country': 'Mexico', 'inflation': 6.77}, {'country': 'Georgia', 'inflation': 6.7}, {'country': 'Tajikistan', 'inflation': 6.7}, {'country': 'Uruguay', 'inflation': 6.55}, {'country': 'Mongolia', 'inflation': 6.4}, {'country': 'Tunisia', 'inflation': 6.4}, {'country': 'Zambia', 'inflation': 6.2}, {'country': 'Turkmenistan', 'inflation': 6.17}, {'country': 'Sao Tome and Principe', 'inflation': 5.9}, {'country': 'Bangladesh', 'inflation': 5.83}, {'country': 'Sri Lanka', 'inflation': 5.8}, {'country': 'Uzbekistan', 'inflation': 5.7}, {'country': 'Guatemala', 'inflation': 5.68}, {'country': 'Nicaragua', 'inflation': 5.68}, {'country': 'Mozambique', 'inflation': 5.65}, {'country': 'Lesotho', 'inflation': 5.6}, {'country': 'India', 'inflation': 5.21}, {'country': 'Cuba', 'inflation': 5.2}, {'country': 'Jamaica', 'inflation': 5.2}, {'country': 'Namibia', 'inflation': 5.2}, {'country': 'Bhutan', 'inflation': 5.18}, {'country': 'Papua New Guinea', 'inflation': 5.1}, {'country': 'Lebanon', 'inflation': 5.01}, {'country': 'Kenya', 'inflation': 4.83}, {'country': 'Honduras', 'inflation': 4.73}, {'country': 'South Africa', 'inflation': 4.7}, {'country': 'Swaziland', 'inflation': 4.7}, {'country': 'Algeria', 'inflation': 4.62}, {'country': 'Belarus', 'inflation': 4.6}, {'country': 'Pakistan', 'inflation': 4.57}, {'country': 'Paraguay', 'inflation': 4.5}, {'country': 'Myanmar', 'inflation': 4.46}, {'country': 'Niger', 'inflation': 4.3}, {'country': 'Dominican Republic', 'inflation': 4.2}, {'country': 'Mauritius', 'inflation': 4.2}, {'country': 'Nepal', 'inflation': 4.2}, {'country': 'Colombia', 'inflation': 4.09}, {'country': 'Tanzania', 'inflation': 4.0}, {'country': 'Lithuania', 'inflation': 3.9}, {'country': 'Kyrgyzstan', 'inflation': 3.7}, {'country': 'Indonesia', 'inflation': 3.61}, {'country': 'Republic of the Congo', 'inflation': 3.6}, {'country': 'Malaysia', 'inflation': 3.5}, {'country': 'Seychelles', 'inflation': 3.48}, {'country': 'Zimbabwe', 'inflation': 3.46}, {'country': 'Barbados', 'inflation': 3.4}, {'country': 'Estonia', 'inflation': 3.4}, {'country': 'Philippines', 'inflation': 3.3}, {'country': 'Romania', 'inflation': 3.3}, {'country': 'Botswana', 'inflation': 3.2}, {'country': 'Jordan', 'inflation': 3.2}, {'country': 'Afghanistan', 'inflation': 3.1}, {'country': 'Serbia', 'inflation': 3.0}, {'country': 'Uganda', 'inflation': 3.0}, {'country': 'United Kingdom', 'inflation': 3.0}, {'country': 'Brazil', 'inflation': 2.95}, {'country': 'Benin', 'inflation': 2.8}, {'country': 'Bulgaria', 'inflation': 2.8}, {'country': 'Fiji', 'inflation': 2.8}, {'country': 'Bolivia', 'inflation': 2.71}, {'country': 'United Arab Emirates', 'inflation': 2.7}, {'country': 'Vietnam', 'inflation': 2.65}, {'country': 'Armenia', 'inflation': 2.6}, {'country': 'Costa Rica', 'inflation': 2.56}, {'country': 'Russia', 'inflation': 2.5}, {'country': 'Czech Republic', 'inflation': 2.4}, {'country': 'Iceland', 'inflation': 2.4}, {'country': 'Macedonia', 'inflation': 2.4}, {'country': 'Chile', 'inflation': 2.3}, {'country': 'Austria', 'inflation': 2.2}, {'country': 'Latvia', 'inflation': 2.2}, {'country': 'Burkina Faso', 'inflation': 2.1}, {'country': 'Cambodia', 'inflation': 2.1}, {'country': 'Hungary', 'inflation': 2.1}, {'country': 'Poland', 'inflation': 2.1}, {'country': 'United States', 'inflation': 2.1}, {'country': 'El Salvador', 'inflation': 2.04}, {'country': 'Macau', 'inflation': 2.04}, {'country': 'Puerto Rico', 'inflation': 2.0}, {'country': 'Australia', 'inflation': 1.9}, {'country': 'Canada', 'inflation': 1.9}, {'country': 'Montenegro', 'inflation': 1.9}, {'country': 'Morocco', 'inflation': 1.9}, {'country': 'Slovakia', 'inflation': 1.9}, {'country': 'Albania', 'inflation': 1.8}, {'country': 'China', 'inflation': 1.8}, {'country': 'Comoros', 'inflation': 1.8}, {'country': 'Belgium', 'inflation': 1.71}, {'country': 'European Union', 'inflation': 1.7}, {'country': 'Hong Kong', 'inflation': 1.7}, {'country': 'Oman', 'inflation': 1.7}, {'country': 'Slovenia', 'inflation': 1.7}, {'country': 'Sweden', 'inflation': 1.7}, {'country': 'Trinidad and Tobago', 'inflation': 1.7}, {'country': 'Germany', 'inflation': 1.6}, {'country': 'Guyana', 'inflation': 1.6}, {'country': 'Maldives', 'inflation': 1.6}, {'country': 'New Zealand', 'inflation': 1.6}, {'country': 'Norway', 'inflation': 1.6}, {'country': 'Equatorial Guinea', 'inflation': 1.5}, {'country': 'Mali', 'inflation': 1.5}, {'country': 'South Korea', 'inflation': 1.5}, {'country': 'Cayman Islands', 'inflation': 1.4}, {'country': 'France', 'inflation': 1.4}, {'country': 'Peru', 'inflation': 1.37}, {'country': 'Luxembourg', 'inflation': 1.36}, {'country': 'Bahrain', 'inflation': 1.3}, {'country': 'Euro Area', 'inflation': 1.3}, {'country': 'Malta', 'inflation': 1.3}, {'country': 'Netherlands', 'inflation': 1.3}, {'country': 'Taiwan', 'inflation': 1.21}, {'country': 'Bosnia and Herzegovina', 'inflation': 1.2}, {'country': 'Croatia', 'inflation': 1.2}, {'country': 'Mauritania', 'inflation': 1.2}, {'country': 'New Caledonia', 'inflation': 1.2}, {'country': 'Ivory Coast', 'inflation': 1.1}, {'country': 'Portugal', 'inflation': 1.1}, {'country': 'Kuwait', 'inflation': 1.07}, {'country': 'Denmark', 'inflation': 1.0}, {'country': 'Japan', 'inflation': 1.0}, {'country': 'Bahamas', 'inflation': 0.9}, {'country': 'Belize', 'inflation': 0.9}, {'country': 'Italy', 'inflation': 0.9}, {'country': 'Cameroon', 'inflation': 0.8}, {'country': 'Cape Verde', 'inflation': 0.8}, {'country': 'East Timor', 'inflation': 0.8}, {'country': 'Liechtenstein', 'inflation': 0.8}, {'country': 'Switzerland', 'inflation': 0.8}, {'country': 'Thailand', 'inflation': 0.78}, {'country': 'Greece', 'inflation': 0.7}, {'country': 'Finland', 'inflation': 0.5}, {'country': 'Kosovo', 'inflation': 0.5}, {'country': 'Panama', 'inflation': 0.5}, {'country': 'Spain', 'inflation': 0.5}, {'country': 'Ireland', 'inflation': 0.4}, {'country': 'Israel', 'inflation': 0.4}, {'country': 'Qatar', 'inflation': 0.4}, {'country': 'Saudi Arabia', 'inflation': 0.4}, {'country': 'Singapore', 'inflation': 0.4}, {'country': 'Laos', 'inflation': 0.23}, {'country': 'Iraq', 'inflation': 0.1}, {'country': 'Gabon', 'inflation': 0.0}, {'country': 'Brunei', 'inflation': -0.02}, {'country': 'Palestine', 'inflation': -0.02}, {'country': 'Ecuador', 'inflation': -0.2}, {'country': 'Rwanda', 'inflation': -0.2}, {'country': 'Cyprus', 'inflation': -0.6}, {'country': 'Guinea Bissau', 'inflation': -0.7}, {'country': 'Senegal', 'inflation': -0.7}, {'country': 'Aruba', 'inflation': -0.9}, {'country': 'Djibouti', 'inflation': -1.1}, {'country': 'Chad', 'inflation': -1.3}, {'country': 'Togo', 'inflation': -1.6}, {'country': 'Somalia', 'inflation': -3.6}])
+
+
+ok_response = {'data':country_inflation, 'code':200}
 error_responses = [
-    {'msg':'Error', 'code':400},
-    {'msg':'Error', 'code':401},
-    {'msg':'Error', 'code':403},
-    {'msg':'Error', 'code':404},
-    {'msg':'Error', 'code':500},
-    {'msg':'Error', 'code':501},
-    {'msg':'Error', 'code':502},
-    {'msg':'Error', 'code':503},
-    {'msg':'Error', 'code':504},
+    {'data':'Error', 'code':400},
+    {'data':'Error', 'code':401},
+    {'data':'Error', 'code':403},
+    {'data':'Error', 'code':404},
+    {'data':'Error', 'code':500},
+    {'data':'Error', 'code':501},
+    {'data':'Error', 'code':502},
+    {'data':'Error', 'code':503},
+    {'data':'Error', 'code':504},
     ]
 
 @app.route("/", methods=['GET', 'POST'])
@@ -27,13 +32,13 @@ def rand():
         time.sleep(random.randint(1,max_timeout))
     pct = int(pct)
     if pct == 0:
-        return ok_response['msg'], ok_response['code']
+        return ok_response['data'], ok_response['code']
     else:
         if random.randint(0,100) <= pct:
             res = random.choice(error_responses)
             abort(res['code'])
         else:
-            return ok_response['msg'], ok_response['code']
+            return ok_response['data'], ok_response['code']
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8001)
